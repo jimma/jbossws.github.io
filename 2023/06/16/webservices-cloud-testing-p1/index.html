@@ -117,236 +117,73 @@
                   <div id="main">
                      <div id="breadcrumb">
                        <span>
-                              <a href="/">JBoss Web Services</a>
+                              <a href="/">JBossWS</a>
                                 &gt;
                               <a href="/blogs">Blogs</a>
                                 &gt;
-                              <a href="#"></a>
+                              <a href="#">Web Services testing in the cloud - Part I</a>
                        </span>
                      </div><!-- end breadcrumb -->
-                     
-<div class="post-preview">
-    <a href="/2011/11/12/upcoming-jboss-as-7-event-in-lugano-jug/">
-        <h3 class="post-title"> Upcoming JBoss AS 7 event in Lugano (JUG)
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on November 12, 2011</p>
-</div>
-<hr>
+                     <h3>Web Services testing in the cloud - Part I</h3>
+                     <h5>By Rebecca Searls | June 16, 2023</h5>
+                     <p></p>
+                     <p>The web services team is embarking on an exploration of technologies and strategies
+for running the JBossWS-CXF integration tests in a cloud environment.
+A series of blogs will follow that discuss the technologies
+evaluated and strategies tried in this quest.</p>
 
-<div class="post-preview">
-    <a href="/2011/10/11/jbossws-towards-jboss-as-710/">
-        <h3 class="post-title"> JBossWS towards JBoss AS 7.1.0
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on October 11, 2011</p>
-</div>
-<hr>
+<h4 id="working-on-requirements">Working on requirements</h4>
 
-<div class="post-preview">
-    <a href="/2011/09/20/latest-web-services-presentations/">
-        <h3 class="post-title"> Latest Web Services presentations
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on September 20, 2011</p>
-</div>
-<hr>
+<h5 id="test-execution-architecture">Test execution architecture</h5>
 
-<div class="post-preview">
-    <a href="/2011/09/07/jboss-at-ecows-2011/">
-        <h3 class="post-title"> JBoss at ECOWS 2011
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on September 7, 2011</p>
-</div>
-<hr>
+<p>It is the team’s desire to use a framework that adheres to the Java maxim 
+<em>“Write once. Run anywhere”</em>.  In this case, write the tests once and run them on
+any Kubernetes based cloud environment.
+I would add to that, the goal of leveraging what we can of the existing test
+class format.  The web services integration test suites uses Arquillian / <a href="https://github.com/shrinkwrap">ShrinkWrap</a>
+which provides a means for the test class itself to contain the definition of the
+web service deployment archive (normally a WAR file) that is deployed and the client code used to call the service.
+While I find it a convenience to have both key components co-located in a single file,
+the team is still discussing whether the test suite shouldn’t instead follow the
+classic cloud paradigm in which a testable image is created in a separate pre-test build step 
+and the deployment archive would need to be available at that time in order to be
+incorporated into the testing image.</p>
 
-<div class="post-preview">
-    <a href="/2011/08/31/apache-cxf-pmc/">
-        <h3 class="post-title"> Apache CXF PMC
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on August 31, 2011</p>
-</div>
-<hr>
+<p>Generally it is desirable to continue using Maven and its plugins to build the test images 
+and run the test suites. As a matter of fact, Maven has been the dominant build tool of Red Hat shephered projects
+for years.</p>
 
-<div class="post-preview">
-    <a href="/2011/07/28/publishing-ws-endpoints-through-as7/">
-        <h3 class="post-title"> Publishing WS endpoints through AS7 services
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on July 28, 2011</p>
-</div>
-<hr>
+<h5 id="test-environment">Test environment</h5>
 
-<div class="post-preview">
-    <a href="/2011/07/07/jboss-as-7-webservices-features/">
-        <h3 class="post-title"> JBoss AS 7 webservices features
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on July 7, 2011</p>
-</div>
-<hr>
+<p>At this time there are two environments in which we must be able to run the
+test suite, one on our local machines for development purposes and two in the CIs we use.
+This means running <a href="https://minikube.sigs.k8s.io/docs/">minikube</a> and/or <a href="https://docs.openshift.com/">OpenShift</a> on our personal machines.</p>
 
-<div class="post-preview">
-    <a href="/2011/05/11/jbossws-jbug-munchen/">
-        <h3 class="post-title"> JBossWS @ JBUG München
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on May 11, 2011</p>
-</div>
-<hr>
+<p>JBossws-CXF continuous integration is currently run on GitHub.  It is yet to be determined what cloud
+products GitHub CI can run. Jenkins supports testing in cloud environments but our team does
+not currently use it.</p>
 
-<div class="post-preview">
-    <a href="/2011/05/11/jbossws-400beta1-is-out/">
-        <h3 class="post-title"> JBossWS 4.0.0.Beta1 is out!
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on May 11, 2011</p>
-</div>
-<hr>
+<p><a href="https://www.wildfly.org/">WildFly</a> will be the server used in a testable image.  In my opinion the test suite
+should support generation of testable images of both development versions of WildFly and
+released versions.  The WildFly team pushes images of released versions
+of WildFly to the <a href="https://quay.io/">quay.io</a> repository.  An extra build step will be needed to generate an image containing a development version of WildFly.</p>
 
-<div class="post-preview">
-    <a href="/2011/01/07/stressing-ws-features-of-jboss-as-6/">
-        <h3 class="post-title"> Stressing WS features of JBoss AS 6 Final
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on January 7, 2011</p>
-</div>
-<hr>
+<h5 id="test-scenarios">Test scenarios</h5>
 
-<div class="post-preview">
-    <a href="/2010/12/17/ready-for-jboss-as-6-and-then/">
-        <h3 class="post-title"> Ready for JBoss AS 6... and then?
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on December 17, 2010</p>
-</div>
-<hr>
+<p>Another issue under discussion is do we write only new tests or leverage
+some or all the existing tests.  There is agreement that new tests need
+to be written.  There are unique cloud based scenarios that should be
+tested.  There is still an open discussion about testing any of the existing
+integration tests in the cloud.  There is also a discussion whether the suite
+of tests should reside in a separate project or in a new module within the existing projects.  I think the test suite location
+will be determined once we have a better understanding of the framework(s)
+for building and running the tests in the required environments.</p>
 
-<div class="post-preview">
-    <a href="/2010/12/09/jbossws-340-has-landed/">
-        <h3 class="post-title"> JBossWS 3.4.0 has landed!
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on December 9, 2010</p>
-</div>
-<hr>
+<p>These are the general parameters the team is using in evaluating technologies and strategies in writing and running web services tests in the cloud.  The coming blogs
+will discuss what we are learning and the decisions made for our implementation.
+If you’re willing to participate to the discussion or getting involved and contribute to effort in any way, feel free to reach out, for example by starting a thread in <a href="https://github.com/jbossws/jbossws-cxf/discussions">our discussion space on GitHub</a>.</p>
 
-<div class="post-preview">
-    <a href="/2010/10/13/jbossws-340cr1-is-out/">
-        <h3 class="post-title"> JBossWS 3.4.0.CR1 is out!
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on October 13, 2010</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2010/08/26/implementing-jaxws-22-http-spi-on/">
-        <h3 class="post-title"> Implementing JAXWS 2.2 HTTP SPI on Apache CXF
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on August 26, 2010</p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2010/08/26/comsunnethttpserver-transport-using/">
-        <h3 class="post-title"> com.sun.net.httpserver transport using JAXWS 2.2 HTTP SPI
-        </h3>
-        
-        <h5 class="post-subtitle">
-            
-        </h5>
-        
-    </a>
-    <p class="post-meta">Posted by JBossWS Team on August 26, 2010</p>
-</div>
-<hr>
-
-
-<!-- Pager -->
-<p align="center">
-
-    
-        <a href="/blogs/page3">&larr; Newer Posts</a>
-    
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    
-        <a href="/blogs/page5">Older Posts &rarr;</a>
-    
-
+<p>The next part of this blog post series is available <a href="https://jbossws.github.io/2023/06/23/webservices-cloud-testing-p2/">here</a>.</p>
 
 
                   </div><!-- end main -->
